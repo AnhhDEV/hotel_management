@@ -1,38 +1,29 @@
 package com.official.hotelmanagement.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.HashSet;
 import java.util.Set;
 
-@Table(name = "hotel")
+@Table("Hotel")
 public class Hotel {
     @Id
-    @Column("hotel_id")
     private Integer hotelId;
     private String name;
     private String address;
     private String contact;
     private String owner;
-    private Set<Floor> floors = new HashSet<>();
+    @MappedCollection(idColumn = "hotel")
+    private Set<Floor> floors;
 
-    public Hotel(Integer hotelId, String name, String address, String contact, String owner) {
-        this.hotelId = hotelId;
+    public Hotel() {};
+
+    public Hotel(String name, String address, String contact, String owner) {
         this.name = name;
         this.address = address;
         this.contact = contact;
         this.owner = owner;
-    }
-
-    public void addFloor(Floor floor) {
-        floors.add(floor);
-        floor.addReferenceToHotel(this.hotelId);
-    }
-
-    public void removeFloor(Floor floor) {
-        floors.remove(floor);
     }
 
     public Integer getHotelId() {
@@ -81,17 +72,5 @@ public class Hotel {
 
     public void setFloors(Set<Floor> floors) {
         this.floors = floors;
-    }
-
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "hotelId=" + hotelId +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", contact='" + contact + '\'' +
-                ", owner='" + owner + '\'' +
-                ", floors=" + floors +
-                '}';
     }
 }
