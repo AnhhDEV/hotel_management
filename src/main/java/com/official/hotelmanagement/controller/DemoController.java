@@ -1,13 +1,7 @@
 package com.official.hotelmanagement.controller;
 
-import com.official.hotelmanagement.model.Employee;
-import com.official.hotelmanagement.model.Floor;
-import com.official.hotelmanagement.model.Hotel;
-import com.official.hotelmanagement.model.Room;
-import com.official.hotelmanagement.repository.EmployeeRepository;
-import com.official.hotelmanagement.repository.FloorRepository;
-import com.official.hotelmanagement.repository.HotelRepository;
-import com.official.hotelmanagement.repository.RoomRepository;
+import com.official.hotelmanagement.model.*;
+import com.official.hotelmanagement.repository.*;
 import com.official.hotelmanagement.service.EmployeeManagementService;
 import com.official.hotelmanagement.service.HotelManagementService;
 import com.official.hotelmanagement.util.RoomType;
@@ -28,14 +22,18 @@ public class DemoController {
     private final HotelRepository hotelRepository;
     private final FloorRepository floorRepository;
     private final RoomRepository roomRepository;
+    private final CustomerRepository customerRepository;
+    private final ReservationRepository reservationRepository;
 
     @Autowired
-    public DemoController(EmployeeManagementService employeeManagementService, HotelManagementService hotelManagementService, HotelRepository hotelRepository, FloorRepository floorRepository, RoomRepository roomRepository) {
+    public DemoController(EmployeeManagementService employeeManagementService, HotelManagementService hotelManagementService, HotelRepository hotelRepository, FloorRepository floorRepository, RoomRepository roomRepository, CustomerRepository customerRepository, ReservationRepository reservationRepository) {
         this.employeeManagementService = employeeManagementService;
         this.hotelManagementService = hotelManagementService;
         this.hotelRepository = hotelRepository;
         this.floorRepository = floorRepository;
         this.roomRepository = roomRepository;
+        this.customerRepository = customerRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     @GetMapping(path = "/hotels")
@@ -56,6 +54,16 @@ public class DemoController {
     @GetMapping(path = "/employees")
     public Iterable<Employee> getEmployees() {
         return employeeManagementService.getEmployees();
+    }
+
+    @GetMapping(path = "/customers")
+    public Iterable<Customer> getCustomers() {
+        return customerRepository.findAll();
+    }
+
+    @GetMapping(path = "/reservations")
+    public Iterable<Reservation> getReservations() {
+        return reservationRepository.findAll();
     }
 
     @GetMapping(path = "/new_hotel")
