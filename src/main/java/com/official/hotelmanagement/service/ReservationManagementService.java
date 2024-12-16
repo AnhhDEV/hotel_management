@@ -1,10 +1,11 @@
 package com.official.hotelmanagement.service;
 
 import com.official.hotelmanagement.model.Reservation;
-import com.official.hotelmanagement.model.Room;
+import com.official.hotelmanagement.model.RoomReservation;
 import com.official.hotelmanagement.repository.CustomerRepository;
 import com.official.hotelmanagement.repository.ReservationRepository;
 import com.official.hotelmanagement.repository.RoomRepository;
+import com.official.hotelmanagement.repository.RoomReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,32 +19,18 @@ public class ReservationManagementService {
     private final ReservationRepository reservationRepository;
     private final CustomerRepository customerRepository;
     private final RoomRepository roomRepository;
+    private final RoomReservationRepository roomReservationRepository;
+
     @Autowired
-    public ReservationManagementService(ReservationRepository reservationRepository, CustomerRepository customerRepository, RoomRepository roomRepository) {
+    public ReservationManagementService(ReservationRepository reservationRepository, CustomerRepository customerRepository, RoomRepository roomRepository, RoomReservationRepository roomReservationRepository) {
         this.reservationRepository = reservationRepository;
         this.customerRepository = customerRepository;
         this.roomRepository = roomRepository;
+        this.roomReservationRepository = roomReservationRepository;
     }
 
-//    public void createReservationWithRooms(LocalDateTime checkinDate, LocalDateTime checkoutDate, Set<Integer> roomNumbers, BigDecimal cost) {
-//        // Tạo một Reservation mới
-//        Reservation reservation = new Reservation(checkinDate, checkoutDate, null);
-//        reservationRepository.save(reservation);
-//
-//        // Duyệt qua các roomNumber và tạo RoomReservation
-//        for (Integer roomNumber : roomNumbers) {
-//            Room room = roomRepository.findById(roomNumber)
-//                    .orElseThrow(() -> new IllegalArgumentException("Room không tồn tại: " + roomNumber));
-//
-//            RoomReservation roomReservation = new RoomReservation(
-//                    room.getRoomNumber(),
-//                    reservation.getReservationId(),
-//                    cost
-//            );
-//            roomReservationRepository.save(roomReservation);
-//        }
-//
-//        System.out.println("Đặt phòng thành công!");
-//    }
+    public Iterable<RoomReservation> getRoomReservations() {
+        return roomReservationRepository.findAll();
+    }
 
 }

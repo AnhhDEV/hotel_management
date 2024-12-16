@@ -3,9 +3,11 @@ package com.official.hotelmanagement.model;
 import com.official.hotelmanagement.util.RoomType;
 import com.official.hotelmanagement.util.Status;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Table("Room")
 public class Room {
@@ -17,6 +19,8 @@ public class Room {
     private BigDecimal cost;
     private Status status;
     private Integer employee;
+    @MappedCollection(idColumn = "room")
+    private Set<RoomReservation> roomReservations;
 
     public Room() {}
 
@@ -74,6 +78,14 @@ public class Room {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Set<RoomReservation> getRoomReservations() {
+        return roomReservations;
+    }
+
+    public void setRoomReservations(Set<RoomReservation> roomReservations) {
+        this.roomReservations = roomReservations;
     }
 
     @Override

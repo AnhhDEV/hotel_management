@@ -4,6 +4,7 @@ import com.official.hotelmanagement.model.*;
 import com.official.hotelmanagement.repository.*;
 import com.official.hotelmanagement.service.EmployeeManagementService;
 import com.official.hotelmanagement.service.HotelManagementService;
+import com.official.hotelmanagement.service.ReservationManagementService;
 import com.official.hotelmanagement.util.RoomType;
 import com.official.hotelmanagement.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,10 @@ public class DemoController {
     private final RoomRepository roomRepository;
     private final CustomerRepository customerRepository;
     private final ReservationRepository reservationRepository;
+    private final ReservationManagementService reservationManagementService;
 
     @Autowired
-    public DemoController(EmployeeManagementService employeeManagementService, HotelManagementService hotelManagementService, HotelRepository hotelRepository, FloorRepository floorRepository, RoomRepository roomRepository, CustomerRepository customerRepository, ReservationRepository reservationRepository) {
+    public DemoController(EmployeeManagementService employeeManagementService, HotelManagementService hotelManagementService, HotelRepository hotelRepository, FloorRepository floorRepository, RoomRepository roomRepository, CustomerRepository customerRepository, ReservationRepository reservationRepository, ReservationManagementService reservationManagementService) {
         this.employeeManagementService = employeeManagementService;
         this.hotelManagementService = hotelManagementService;
         this.hotelRepository = hotelRepository;
@@ -34,6 +36,7 @@ public class DemoController {
         this.roomRepository = roomRepository;
         this.customerRepository = customerRepository;
         this.reservationRepository = reservationRepository;
+        this.reservationManagementService = reservationManagementService;
     }
 
     @GetMapping(path = "/hotels")
@@ -64,6 +67,11 @@ public class DemoController {
     @GetMapping(path = "/reservations")
     public Iterable<Reservation> getReservations() {
         return reservationRepository.findAll();
+    }
+
+    @GetMapping(path = "/room_ref")
+    public Iterable<RoomReservation> getRoomRefs() {
+        return reservationManagementService.getRoomReservations();
     }
 
     @GetMapping(path = "/new_hotel")

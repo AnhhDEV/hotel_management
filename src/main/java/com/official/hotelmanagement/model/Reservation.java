@@ -2,9 +2,11 @@ package com.official.hotelmanagement.model;
 
 import com.official.hotelmanagement.util.Payment;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Table("Reservation")
 public class Reservation {
@@ -14,6 +16,8 @@ public class Reservation {
     private LocalDateTime checkinDate;
     private LocalDateTime checkoutDate;
     private Payment payment;
+    @MappedCollection(idColumn = "reservation")
+    private Set<RoomReservation> roomReservations;
 
     public Reservation() {}
 
@@ -53,6 +57,14 @@ public class Reservation {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public Set<RoomReservation> getRoomReservations() {
+        return roomReservations;
+    }
+
+    public void setRoomReservations(Set<RoomReservation> roomReservations) {
+        this.roomReservations = roomReservations;
     }
 
     @Override
