@@ -51,7 +51,7 @@ public class DemoController {
 
     @GetMapping(path = "/rooms")
     public Iterable<Room> getRooms() {
-        return roomRepository.findAll();
+        return hotelManagementService.getRooms();
     }
 
     @GetMapping(path = "/employees")
