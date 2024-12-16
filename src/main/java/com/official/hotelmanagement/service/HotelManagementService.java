@@ -74,5 +74,32 @@ public class HotelManagementService {
         return floorRepository.save(floor);
     }
 
+
+    @Transactional
+    public void updateRoomToFloor(Integer newFloorNumber, Room updatedRoom) {
+        // Find the current floor of the room
+        Floor currentFloor = roomRepository.findFloorByRoomNumber(updatedRoom.getRoomNumber())
+                .orElseThrow(() -> new RuntimeException("Room not found: " + updatedRoom.getRoomNumber()));
+
+        // Find the new floor
+        Floor newFloor = floorRepository.findById(newFloorNumber)
+                .orElseThrow(() -> new RuntimeException("New floor not found: " + newFloorNumber));
+
+        // Remove the room from the current floor
+        currentFloor.getRooms().removeIf(room -> room.getRoomNumber().equals(updatedRoom.getRoomNumber()));
+
+        // Ensure the new floor has a rooms collection
+        if (newFloor.getRooms() == null) {
+            newFloor.setRooms(new HashSet<>());
+        }
+
+        // Add the updated room to the new floor
+        newFloor.getRooms().add(updatedRoom);
+
+        // Save both floors
+        floorRepository.save(currentFloor);
+        floorRepository.save(newFloor);
+    }
+
 }
 

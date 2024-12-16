@@ -16,6 +16,7 @@ public class Room {
     private String description;
     private BigDecimal cost;
     private Status status;
+    private Integer employee;
 
     public Room() {}
 
@@ -25,6 +26,14 @@ public class Room {
         this.description = description;
         this.cost = cost;
         this.status = status;
+    }
+
+    public Integer getEmployeeId() {
+        return employee;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employee = employeeId;
     }
 
     public Integer getRoomNumber() {
@@ -65,5 +74,16 @@ public class Room {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "roomNumber=" + roomNumber +
+                ", roomType=" + roomType +
+                ", description='" + description + '\'' +
+                ", cost=" + cost +
+                ", status=" + status +
+                '}';
     }
 }

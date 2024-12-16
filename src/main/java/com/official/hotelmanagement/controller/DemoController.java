@@ -69,7 +69,7 @@ public class DemoController {
     public Floor addRoomToFloor() {
 //        Room room = new Room(301, RoomType.vip, "", new BigDecimal(1300000), Status.occupied);
         Room room = roomRepository.findById(501).get();
-        hotelManagementService.addRoomToFloor(1, 5, room);
+        hotelManagementService.updateRoomToFloor(3, room);
         return floorRepository.findById(3).get();
     }
 
