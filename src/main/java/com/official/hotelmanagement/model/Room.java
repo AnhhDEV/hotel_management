@@ -26,6 +26,7 @@ public class Room {
 
     public Room(Integer roomNumber, RoomType roomType, String description, BigDecimal cost, Status status) {
         this.roomNumber = roomNumber;
+
         this.roomType = roomType;
         this.description = description;
         this.cost = cost;
