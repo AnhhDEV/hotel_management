@@ -2,26 +2,132 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Customer List</title>
+    <title>Danh sách Khách hàng</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Customer List</h1>
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Lặp qua danh sách khách hàng -->
-    <tr th:each="customer : ${customers}">
-        <td th:text="${customer.getFirstname()}">1</td>
-        <td th:text="${customer.getAddress()}">John Doe</td>
-        <td th:text="${customer.getEmail()}">johndoe@example.com</td>
-    </tr>
-    </tbody>
-</table>
+<div class="container mt-4">
+    <h2>Danh sách Khách hàng</h2>
+
+    <!-- Button Thêm mới -->
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#customerModal"
+            onclick="showAddCustomerForm()">Thêm</button>
+
+    <!-- Bảng danh sách khách hàng -->
+    <table class="table table-striped table-bordered">
+        <thead class="table-light">
+        <tr>
+            <th>STT</th>
+            <th>Họ và tên</th>
+            <th>Liên hệ</th>
+            <th>Email</th>
+            <th>Địa chỉ</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer, index : ${customers}">
+            <td th:text="${index.index + 1}">1</td>
+            <td th:text="${customer.firstname + ' ' + customer.lastname}">Nguyen Van A</td>
+            <td th:text="${customer.contact}">123456789</td>
+            <td th:text="${customer.email}">email@example.com</td>
+            <td th:text="${customer.address}">123 Main St</td>
+            <td>
+                <!-- Nút Cập nhật -->
+                <button class="btn btn-warning btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#customerModal"
+                        th:data-id="${customer.customerId}"
+                        th:data-firstname="${customer.firstname}"
+                        th:data-lastname="${customer.lastname}"
+                        th:data-contact="${customer.contact}"
+                        th:data-email="${customer.email}"
+                        th:data-address="${customer.address}"
+                        onclick="fillEditCustomerForm(this)">
+                    Cập nhật
+                </button>
+                <!-- Nút Xóa -->
+                <a th:href="@{/admin/customers/delete/{id}(id=${customer.customerId})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Bạn có chắc chắn muốn xóa khách hàng này không?');">
+                    Xóa
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Popup -->
+<div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="customerModalLabel">Thêm Khách hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="customerForm" method="post">
+                    <div class="mb-3">
+                        <label for="firstname" class="form-label">Họ</label>
+                        <input type="text" id="firstname" name="firstname" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastname" class="form-label">Tên</label>
+                        <input type="text" id="lastname" name="lastname" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact" class="form-label">Liên hệ</label>
+                        <input type="text" id="contact" name="contact" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Địa chỉ</label>
+                        <input type="text" id="address" name="address" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+                <button type="button" class="btn btn-primary" onclick="submitCustomerForm()">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function showAddCustomerForm() {
+        document.getElementById("customerModalLabel").innerText = "Thêm Khách hàng";
+        document.getElementById("customerForm").action = "/admin/customers/add";
+        resetForm();
+    }
+
+    function fillEditCustomerForm(button) {
+        document.getElementById("customerModalLabel").innerText = "Cập nhật Khách hàng";
+        document.getElementById("customerForm").action = `/admin/customers/edit/${button.getAttribute('data-id')}`;
+        document.getElementById("firstname").value = button.getAttribute("data-firstname");
+        document.getElementById("lastname").value = button.getAttribute("data-lastname");
+        document.getElementById("contact").value = button.getAttribute("data-contact");
+        document.getElementById("email").value = button.getAttribute("data-email");
+        document.getElementById("address").value = button.getAttribute("data-address");
+    }
+
+    function submitCustomerForm() {
+        document.getElementById("customerForm").submit();
+    }
+
+    function resetForm() {
+        document.getElementById("firstname").value = "";
+        document.getElementById("lastname").value = "";
+        document.getElementById("contact").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("address").value = "";
+    }
+</script>
 </body>
 </html>

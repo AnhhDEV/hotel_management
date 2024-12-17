@@ -94,5 +94,9 @@ public class HotelManagementService {
         return roomRepository.findAll();
     }
 
+    public void insertRoom(Room room) {
+        roomRepository.save(room);
+    }
+
 }
 

@@ -169,17 +169,17 @@
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item"><a href="/dist/pages/index.html" class="nav-link active"> <i
+                            <li class="nav-item"><a href="#" id="hotel-link"> <i
                                     class="nav-icon bi bi-circle"></i>
-                                <p>Phòng</p>
+                                <p>Khách sạn</p>
                             </a></li>
-                            <li class="nav-item"><a href="/dist/pages/index2.html" class="nav-link"> <i
+                            <li class="nav-item"><a href="#" id="reservations"> <i
                                     class="nav-icon bi bi-circle"></i>
                                 <p>Đặt chỗ</p>
                             </a></li>
-                            <li class="nav-item"><a href="/dist/pages/index3.html" class="nav-link"> <i
+                            <li class="nav-item"><a href="#" id="add-room"> <i
                                     class="nav-icon bi bi-circle"></i>
-                                <p>Thống kê</p>
+                                <p>Thêm phòng</p>
                             </a></li>
                         </ul>
                     </li>
@@ -225,10 +225,35 @@
 
 <!--my function-->
 <script>
-    document.getElementById("customer-link").addEventListener("click", function (event) {
+
+    document.getElementById("hotel-link").addEventListener("click", function (event) {
         event.preventDefault();  // Ngăn hành vi mặc định của thẻ <a>
 
-        fetch('/admin/customers') // Gửi request tới controller
+        fetch('/admin/hotel') // Gửi request tới controller
+            .then(response => response.text())
+            .then(data => {
+                // Chèn nội dung HTML trả về vào phần main-content
+                document.getElementById("main-content").innerHTML = data;
+            })
+            .catch(error => console.error('Error loading customers:', error));
+    });
+
+    document.getElementById("reservations").addEventListener("click", function (event) {
+        event.preventDefault();  // Ngăn hành vi mặc định của thẻ <a>
+
+        fetch('/admin/reservations') // Gửi request tới controller
+            .then(response => response.text())
+            .then(data => {
+                // Chèn nội dung HTML trả về vào phần main-content
+                document.getElementById("main-content").innerHTML = data;
+            })
+            .catch(error => console.error('Error loading customers:', error));
+    });
+
+    document.getElementById("add-room").addEventListener("click", function (event) {
+        event.preventDefault();  // Ngăn hành vi mặc định của thẻ <a>
+
+        fetch('/admin/hotel/add') // Gửi request tới controller
             .then(response => response.text())
             .then(data => {
                 // Chèn nội dung HTML trả về vào phần main-content
@@ -241,6 +266,18 @@
         event.preventDefault();  // Ngăn hành vi mặc định của thẻ <a>
 
         fetch('/admin/employees') // Gửi request tới controller
+            .then(response => response.text())
+            .then(data => {
+                // Chèn nội dung HTML trả về vào phần main-content
+                document.getElementById("main-content").innerHTML = data;
+            })
+            .catch(error => console.error('Error loading customers:', error));
+    });
+
+    document.getElementById("customer-link").addEventListener("click", function (event) {
+        event.preventDefault();  // Ngăn hành vi mặc định của thẻ <a>
+
+        fetch('/admin/customers') // Gửi request tới controller
             .then(response => response.text())
             .then(data => {
                 // Chèn nội dung HTML trả về vào phần main-content

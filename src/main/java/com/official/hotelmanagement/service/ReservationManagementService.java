@@ -37,5 +37,17 @@ public class ReservationManagementService {
     public Iterable<Customer> getCustomers() {
         return customerRepository.findAll();
     }
+    public void insertCustomer(Customer customer) {
+        customerRepository.save(customer);
+    }
+    public void updateCustomer(Customer customer) {
+        customerRepository.save(customer);
+    }
+    public void deleteCustomer(Customer customer) {
+        customerRepository.delete(customer);
+    }
+    public Customer getCustomerById(Integer id) {
+        return customerRepository.findById(id).orElse(null);
+    }
 
 }
