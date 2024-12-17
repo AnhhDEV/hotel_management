@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="employee-list">
+    <h1>Employee List</h1>
+    <ul>
+        <li th:each="employee : ${employees}">
+            <span th:text="${employee.getFullname()}"></span> - <span th:text="${employee.getRole()}"></span>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

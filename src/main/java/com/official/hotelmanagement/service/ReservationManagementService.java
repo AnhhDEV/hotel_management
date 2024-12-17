@@ -1,5 +1,6 @@
 package com.official.hotelmanagement.service;
 
+import com.official.hotelmanagement.model.Customer;
 import com.official.hotelmanagement.model.Reservation;
 import com.official.hotelmanagement.model.RoomReservation;
 import com.official.hotelmanagement.repository.CustomerRepository;
@@ -31,6 +32,10 @@ public class ReservationManagementService {
 
     public Iterable<RoomReservation> getRoomReservations() {
         return roomReservationRepository.findAll();
+    }
+
+    public Iterable<Customer> getCustomers() {
+        return customerRepository.findAll();
     }
 
 }

@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="admin/share/admin_layout">
-<head>
-    <title>Dashboard</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-<div layout:fragment="content">
-    <h1>Welcome to the Dashboard</h1>
-    <p>This is the main content of the dashboard.</p>
+<!-- Thay thế nội dung layout.html -->
+<div th:fragment="header">
+    <div>
+        <h2>Welcome to the Dashboard!</h2>
+        <p>This is the dashboard page content.</p>
+    </div>
 </div>
 </body>
 </html>

@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Customer add</title>
+    <title>Customer List</title>
 </head>
 <body>
-<h1>Customer add</h1>
+<h1>Customer List</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Lặp qua danh sách khách hàng -->
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.getFirstname()}">1</td>
+        <td th:text="${customer.getAddress()}">John Doe</td>
+        <td th:text="${customer.getEmail()}">johndoe@example.com</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
