@@ -94,6 +94,12 @@ public class HotelManagementService {
         floorRepository.save(newFloor);
     }
 
+    public List<Floor> getFloors() {
+        List<Floor> newFloors = new ArrayList<>();
+        floorRepository.findAll().forEach(newFloors::add);
+        return newFloors;
+    }
+
     public Iterable<Room> getRooms() {
         return roomRepository.findAll();
     }
@@ -109,6 +115,11 @@ public class HotelManagementService {
             list.add(floorDto);
         });
         return list;
+    }
+
+    public Room getFloorById(Integer id) {
+        return roomRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Not found room"));
     }
 
     public void insertRoom(RoomDto roomDto) {

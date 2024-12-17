@@ -1,5 +1,6 @@
 package com.official.hotelmanagement.controller;
 
+import com.official.hotelmanagement.model.Floor;
 import com.official.hotelmanagement.model.Room;
 import com.official.hotelmanagement.model.dto.RoomDto;
 import com.official.hotelmanagement.service.HotelManagementService;
@@ -7,10 +8,9 @@ import com.official.hotelmanagement.util.RoomType;
 import com.official.hotelmanagement.util.Status;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/hotel")
@@ -23,8 +23,17 @@ public class HotelController {
     }
 
     @GetMapping
-    public String getHotel() {
+    public String getHotel(Model model) {
+        List<Floor> floors = hotelService.getFloors();
+        model.addAttribute("floors", floors);
         return "demo/hotel";
+    }
+
+    @GetMapping("/{id}")
+    public String getHotelById(@PathVariable("id") Integer id, Model model) {
+        Room room = hotelService.getRoomById(id);
+        model.addAttribute("room", room);
+        return "demo/room-detail";
     }
 
     @GetMapping("/add-room")

@@ -49,8 +49,8 @@ public class DemoController {
     }
 
     @GetMapping(path = "/floors")
-    public Iterable<Floor> getFloors() {
-        return floorRepository.findAll();
+    public List<Floor> getFloors() {
+        return hotelManagementService.getFloors();
     }
 
     @GetMapping(path = "/rooms")
@@ -81,6 +81,11 @@ public class DemoController {
     @GetMapping(path = "/reservation/{id}")
     public ReservationDto getReservation(@PathVariable("id") Integer id) {
         return reservationManagementService.getReservationById(id);
+    }
+
+    @GetMapping("/room/{id}")
+    public Room getHotelById(@PathVariable("id") Integer id) {
+        return hotelManagementService.getRoomById(id);
     }
 
     @GetMapping(path = "/floor_number")
