@@ -253,7 +253,7 @@
     document.getElementById("add-room").addEventListener("click", function (event) {
         event.preventDefault();  // Ngăn hành vi mặc định của thẻ <a>
 
-        fetch('/admin/hotel/add') // Gửi request tới controller
+        fetch('/admin/hotel/add-room') // Gửi request tới controller
             .then(response => response.text())
             .then(data => {
                 // Chèn nội dung HTML trả về vào phần main-content

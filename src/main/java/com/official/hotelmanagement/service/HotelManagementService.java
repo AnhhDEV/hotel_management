@@ -3,6 +3,8 @@ package com.official.hotelmanagement.service;
 import com.official.hotelmanagement.model.Floor;
 import com.official.hotelmanagement.model.Hotel;
 import com.official.hotelmanagement.model.Room;
+import com.official.hotelmanagement.model.dto.FloorDto;
+import com.official.hotelmanagement.model.dto.RoomDto;
 import com.official.hotelmanagement.repository.FloorRepository;
 import com.official.hotelmanagement.repository.HotelRepository;
 import com.official.hotelmanagement.repository.RoomRepository;
@@ -10,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -94,8 +98,29 @@ public class HotelManagementService {
         return roomRepository.findAll();
     }
 
-    public void insertRoom(Room room) {
-        roomRepository.save(room);
+    public Room getRoomById(Integer id) {
+        return roomRepository.findById(id).orElse(null);
+    }
+
+    public List<FloorDto> getFloorNumbers() {
+        List<FloorDto> list = new ArrayList<>();
+        floorRepository.findAll().forEach(floorNumber -> {
+            FloorDto floorDto = new FloorDto(floorNumber.getFloorNumber());
+            list.add(floorDto);
+        });
+        return list;
+    }
+
+    public void insertRoom(RoomDto roomDto) {
+        roomRepository.insertRoom(
+                roomDto.roomNumber(),
+                roomDto.roomType().name(),
+                roomDto.description(),
+                roomDto.cost(),
+                roomDto.status().name(),
+                roomDto.floor(),
+                roomDto.hotel()
+        );
     }
 
 }

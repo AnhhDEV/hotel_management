@@ -3,6 +3,7 @@ package com.official.hotelmanagement.service;
 import com.official.hotelmanagement.model.Customer;
 import com.official.hotelmanagement.model.Reservation;
 import com.official.hotelmanagement.model.RoomReservation;
+import com.official.hotelmanagement.model.dto.ReservationDto;
 import com.official.hotelmanagement.repository.CustomerRepository;
 import com.official.hotelmanagement.repository.ReservationRepository;
 import com.official.hotelmanagement.repository.RoomRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -48,6 +50,19 @@ public class ReservationManagementService {
     }
     public Customer getCustomerById(Integer id) {
         return customerRepository.findById(id).orElse(null);
+    }
+
+    public Iterable<Reservation> getReservations() {
+        return reservationRepository.findAll();
+    }
+
+    public ReservationDto getReservationById(Integer id) {
+        return reservationRepository.findReservationWithCustomerById(id)
+                .orElseThrow(() -> new RuntimeException("Reservation not found"));
+    }
+
+    public Iterable<ReservationDto> getReservationDtos() {
+        return reservationRepository.findReservationsDto();
     }
 
 }

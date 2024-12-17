@@ -1,6 +1,8 @@
 package com.official.hotelmanagement.controller;
 
 import com.official.hotelmanagement.model.*;
+import com.official.hotelmanagement.model.dto.FloorDto;
+import com.official.hotelmanagement.model.dto.ReservationDto;
 import com.official.hotelmanagement.repository.*;
 import com.official.hotelmanagement.service.EmployeeManagementService;
 import com.official.hotelmanagement.service.HotelManagementService;
@@ -9,10 +11,12 @@ import com.official.hotelmanagement.util.RoomType;
 import com.official.hotelmanagement.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/test")
@@ -66,7 +70,22 @@ public class DemoController {
 
     @GetMapping(path = "/reservations")
     public Iterable<Reservation> getReservations() {
-        return reservationRepository.findAll();
+        return reservationManagementService.getReservations();
+    }
+
+    @GetMapping(path = "/reservationDtos")
+    public Iterable<ReservationDto> getReservationDtos() {
+        return reservationManagementService.getReservationDtos();
+    }
+
+    @GetMapping(path = "/reservation/{id}")
+    public ReservationDto getReservation(@PathVariable("id") Integer id) {
+        return reservationManagementService.getReservationById(id);
+    }
+
+    @GetMapping(path = "/floor_number")
+    public List<FloorDto> getFloorNumbers() {
+        return hotelManagementService.getFloorNumbers();
     }
 
     @GetMapping(path = "/room_ref")
