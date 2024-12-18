@@ -1,7 +1,6 @@
 package com.official.hotelmanagement.controller;
 
 import com.official.hotelmanagement.model.Customer;
-import com.official.hotelmanagement.model.Employee;
 import com.official.hotelmanagement.service.ReservationManagementService;
 import com.official.hotelmanagement.util.Source;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class CustomerController {
         model.addAttribute("sources", Source.values()); // Enum Source
         return "demo/customer";
     }
-    
+
     @PostMapping("/add")
     public String addCustomer(@RequestParam String firstname,
                               @RequestParam String lastname,

@@ -4,6 +4,7 @@ import com.official.hotelmanagement.model.Customer;
 import com.official.hotelmanagement.model.Reservation;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ReservationDto {
 
@@ -18,7 +19,7 @@ public class ReservationDto {
     private String contact;
     private String email;
     private String address;
-
+    private List<String> roomNumbers;
 
     public ReservationDto(Integer reservationId, LocalDateTime checkinDate, LocalDateTime checkoutDate, String payment, Integer customerId, String firstname, String lastname, String contact, String email, String address) {
         this.reservationId = reservationId;
@@ -31,6 +32,18 @@ public class ReservationDto {
         this.contact = contact;
         this.email = email;
         this.address = address;
+    }
+
+    public ReservationDto() {
+
+    }
+
+    public List<String> getRoomNumbers() {
+        return roomNumbers;
+    }
+
+    public void setRoomNumbers(List<String> roomNumbers) {
+        this.roomNumbers = roomNumbers;
     }
 
     public Integer getReservationId() {

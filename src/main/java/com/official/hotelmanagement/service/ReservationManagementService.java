@@ -61,8 +61,27 @@ public class ReservationManagementService {
                 .orElseThrow(() -> new RuntimeException("Reservation not found"));
     }
 
-    public Iterable<ReservationDto> getReservationDtos() {
-        return reservationRepository.findReservationsDto();
+    public List<ReservationDto> getReservationDtos() {
+        List<Reservation> reservations = (List<Reservation>) reservationRepository.findAll();
+
+        return reservations.stream().map(reservation -> {
+            ReservationDto dto = new ReservationDto();
+            dto.setReservationId(reservation.getReservationId());
+            dto.setFirstname(customerRepository.findById(reservation.getCustomer()).orElseThrow().getFirstname());
+            dto.setLastname(customerRepository.findById(reservation.getCustomer()).orElseThrow().getLastname());
+            dto.setContact(customerRepository.findById(reservation.getCustomer()).orElseThrow().getContact());
+            dto.setCheckinDate(reservation.getCheckinDate());
+            dto.setCheckoutDate(reservation.getCheckoutDate());
+            dto.setPayment(reservation.getPayment().name());
+
+            // Lấy danh sách các phòng đã đặt
+            List<String> roomNumbers = reservation.getRoomReservations().stream()
+                    .map(rr -> rr.getRoom().toString())
+                    .collect(Collectors.toList());
+            dto.setRoomNumbers(roomNumbers);
+
+            return dto;
+        }).collect(Collectors.toList());
     }
 
     public void updatePayment(Integer reservationId, Payment payment) {
