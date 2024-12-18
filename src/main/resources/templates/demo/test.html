@@ -39,6 +39,10 @@
 </head> <!--end::Head--> <!--begin::Body-->
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+    <span th:text="${successMessage}">Thành công!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 <div class="app-wrapper"> <!--begin::Header-->
     <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
         <div class="container-fluid"> <!--begin::Start Navbar Links-->
@@ -186,6 +190,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="#" class="nav-link" id="reserve-room">
+                                    <i class="nav-icon bi bi-circle-fill"></i>
+                                    <p>Đặt phòng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="#" class="nav-link" id="reservations">
                                     <i class="nav-icon bi bi-circle-fill"></i>
                                     <p>Danh sách đặt phòng</p>
@@ -294,6 +304,18 @@
         event.preventDefault();  // Ngăn hành vi mặc định của thẻ <a>
 
         fetch('/admin/customers') // Gửi request tới controller
+            .then(response => response.text())
+            .then(data => {
+                // Chèn nội dung HTML trả về vào phần main-content
+                document.getElementById("main-content").innerHTML = data;
+            })
+            .catch(error => console.error('Error loading customers:', error));
+    });
+
+    document.getElementById("reserve-room").addEventListener("click", function (event) {
+        event.preventDefault();  // Ngăn hành vi mặc định của thẻ <a>
+
+        fetch('/admin/reservations/reserve') // Gửi request tới controller
             .then(response => response.text())
             .then(data => {
                 // Chèn nội dung HTML trả về vào phần main-content

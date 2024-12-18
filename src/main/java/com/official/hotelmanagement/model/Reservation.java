@@ -28,6 +28,13 @@ public class Reservation {
         this.payment = payment;
     }
 
+    public Reservation(LocalDateTime checkinDate, LocalDateTime checkoutDate, Payment payment, Integer customer) {
+        this.checkinDate = checkinDate;
+        this.checkoutDate = checkoutDate;
+        this.payment = payment;
+        this.customer = customer;
+    }
+
     public Integer getCustomer() {
         return customer;
     }

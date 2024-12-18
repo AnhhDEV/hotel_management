@@ -3,6 +3,7 @@ package com.official.hotelmanagement.model;
 import com.official.hotelmanagement.util.RoomType;
 import com.official.hotelmanagement.util.Status;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -19,6 +20,7 @@ public class Room {
     private BigDecimal cost;
     private Status status;
     private Integer employee;
+    @Transient
     @MappedCollection(idColumn = "room")
     private Set<RoomReservation> roomReservations;
 
