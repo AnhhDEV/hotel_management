@@ -105,6 +105,11 @@ public class DemoController {
         return hotelRepository.findAll();
     }
 
+    @GetMapping(path = "/room_available")
+    public List<Room> getRoomAvailable() {
+        return reservationManagementService.getRoomsByAvailable();
+    }
+
     @GetMapping(path = "/add_room_to_floor")
     public Floor addRoomToFloor() {
 //        Room room = new Room(301, RoomType.vip, "", new BigDecimal(1300000), Status.occupied);

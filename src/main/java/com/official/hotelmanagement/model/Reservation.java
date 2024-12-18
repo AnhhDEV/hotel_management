@@ -16,6 +16,7 @@ public class Reservation {
     private LocalDateTime checkinDate;
     private LocalDateTime checkoutDate;
     private Payment payment;
+    private Integer customer;
     @MappedCollection(idColumn = "reservation")
     private Set<RoomReservation> roomReservations;
 
@@ -25,6 +26,21 @@ public class Reservation {
         this.checkinDate = checkinDate;
         this.checkoutDate = checkoutDate;
         this.payment = payment;
+    }
+
+    public Reservation(LocalDateTime checkinDate, LocalDateTime checkoutDate, Payment payment, Integer customer) {
+        this.checkinDate = checkinDate;
+        this.checkoutDate = checkoutDate;
+        this.payment = payment;
+        this.customer = customer;
+    }
+
+    public Integer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Integer customer) {
+        this.customer = customer;
     }
 
     public Integer getReservationId() {
