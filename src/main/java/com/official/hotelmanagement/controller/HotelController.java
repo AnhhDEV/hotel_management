@@ -38,9 +38,9 @@ public class HotelController {
                 for(Room room : rooms) {
                     Boolean check = reservationService.roomIsAvailable(room);
                     if(check) {
-                        hotelService.updateRoomStatus(room, Status.available);
+                        hotelService.updateRoomStatus(room, Status.Available);
                     } else {
-                        hotelService.updateRoomStatus(room, Status.occupied);
+                        hotelService.updateRoomStatus(room, Status.Occupied);
                     }
                 }
             }
@@ -58,7 +58,7 @@ public class HotelController {
 
     @GetMapping("/add-room")
     public String showAddRoomForm(Model model) {
-        model.addAttribute("roomDto", new RoomDto(null, null, "", null, null, null, null));
+        model.addAttribute("roomDto", new RoomDto(null, null, "", null, null, null, 1));
         model.addAttribute("roomTypes", RoomType.values());
         model.addAttribute("statuses", Status.values());
         model.addAttribute("floors", hotelService.getFloorNumbers());

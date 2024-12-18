@@ -19,7 +19,6 @@ public class Room {
     private String description;
     private BigDecimal cost;
     private Status status;
-    private Integer employee;
     @MappedCollection(idColumn = "room")
     private Set<RoomReservation> roomReservations;
 
@@ -32,14 +31,6 @@ public class Room {
         this.description = description;
         this.cost = cost;
         this.status = status;
-    }
-
-    public Integer getEmployeeId() {
-        return employee;
-    }
-
-    public void setEmployeeId(Integer employeeId) {
-        this.employee = employeeId;
     }
 
     public Integer getRoomNumber() {

@@ -89,8 +89,8 @@
                             <strong>Loại phòng:</strong>
                             <span class="text-muted" th:text="${room.roomType}">Normal</span><br>
                             <strong>Trạng thái:</strong>
-                            <span th:class="${room.status.name() == 'available' ? 'status-available' :
-                                (room.status.name() == 'occupied' ? 'status-occupied' : 'status-out-of-service')}"
+                            <span th:class="${room.status.name() == 'Available' ? 'status-available' :
+                                (room.status.name() == 'Occupied' ? 'status-occupied' : 'status-out-of-service')}"
                                   th:text="${room.status}">Available</span><br>
                             <strong>Giá:</strong>
                             <span class="room-cost" th:text="${room.cost} + ' VND'">50.0 VND</span>

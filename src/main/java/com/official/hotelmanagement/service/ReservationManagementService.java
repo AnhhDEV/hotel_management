@@ -109,7 +109,7 @@ public class ReservationManagementService {
         List<Room> rooms = new ArrayList<>();
         roomRepository.findAll().forEach(rooms::add);
         return rooms.stream()
-                .filter(room -> room.getStatus().equals(Status.available))
+                .filter(room -> room.getStatus().equals(Status.Available))
                 .collect(Collectors.toList());
     }
 
