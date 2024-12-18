@@ -8,6 +8,7 @@ import com.official.hotelmanagement.service.HotelManagementService;
 import com.official.hotelmanagement.service.ReservationManagementService;
 import com.official.hotelmanagement.util.RoomType;
 import com.official.hotelmanagement.util.Status;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -66,8 +67,14 @@ public class HotelController {
 
     @PostMapping("/add-room")
     public String addRoom(@ModelAttribute RoomDto roomDto, RedirectAttributes redirectAttributes) {
-        hotelService.insertRoom(roomDto);
-        redirectAttributes.addFlashAttribute("successMessage", "Thêm phòng thành công!");
+        try {
+            hotelService.insertRoom(roomDto);
+            redirectAttributes.addFlashAttribute("successMessage", "Thêm phòng thành công!");
+        } catch (DataIntegrityViolationException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Lỗi: Số phòng đã tồn tại hoặc dữ liệu không hợp lệ!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Lỗi: Không thể thêm phòng. Vui lòng thử lại.");
+        }
         return "redirect:/admin/dashboard";
     }
 

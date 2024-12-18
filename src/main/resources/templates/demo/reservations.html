@@ -25,6 +25,11 @@
 <div class="container mt-4">
     <h2 class="text-center mb-4">Danh sách Đặt phòng</h2>
 
+    <!-- Hiển thị thông báo thành công -->
+    <div th:if="${successMessage}" class="alert alert-success text-center" role="alert">
+        <span th:text="${successMessage}"></span>
+    </div>
+
     <!-- Bảng danh sách Reservation -->
     <table class="table table-striped table-bordered">
         <thead>
@@ -36,6 +41,7 @@
             <th>Ngày nhận phòng</th>
             <th>Ngày trả phòng</th>
             <th>Thanh toán</th>
+            <th>Cập nhật Thanh toán</th>
             <th>Phòng đã đặt</th>
         </tr>
         </thead>
@@ -48,8 +54,27 @@
             <td th:text="${reservation.checkinDate}">2024-06-18</td>
             <td th:text="${reservation.checkoutDate}">2024-06-20</td>
             <td th:text="${reservation.payment}">yes</td>
+
+            <!-- Form cập nhật Payment -->
             <td>
-                <!-- Hiển thị danh sách phòng đã đặt -->
+                <form th:action="@{/admin/reservations/updatePayment}" method="post" class="d-flex">
+                    <!-- Hidden input để truyền reservationId -->
+                    <input type="hidden" name="reservationId" th:value="${reservation.reservationId}" />
+                    <!-- Dropdown chọn trạng thái Payment -->
+                    <select name="payment" class="form-select form-select-sm me-2">
+                        <option th:each="pay : ${payments}"
+                                th:value="${pay}"
+                                th:text="${pay}"
+                                th:selected="${pay == reservation.payment}">
+                        </option>
+                    </select>
+                    <!-- Nút Lưu -->
+                    <button type="submit" class="btn btn-success btn-sm">Lưu</button>
+                </form>
+            </td>
+
+            <!-- Hiển thị danh sách phòng đã đặt -->
+            <td>
                 <span th:each="room, iterStat : ${reservation.roomNumbers}">
                     <span th:text="${room}"></span>
                     <span th:if="${!iterStat.last}">, </span>

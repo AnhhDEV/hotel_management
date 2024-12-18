@@ -50,8 +50,12 @@ public class ReservationController {
 
         List<Room> rooms = reservationService.getRoomsByIds(roomIds);
 
-        reservationService.insertReservation(reservation, rooms);
-        redirectAttributes.addFlashAttribute("successMessage", "Đặt phòng thành công!");
+        try {
+            reservationService.insertReservation(reservation, rooms);
+            redirectAttributes.addFlashAttribute("successMessage", "Đặt phòng thành công!");
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("successMessage", "Đặt phòng không thành công!");
+        }
         return "redirect:/admin/dashboard"; // Quay về danh sách đặt phòng
     }
 

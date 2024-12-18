@@ -2,6 +2,7 @@ package com.official.hotelmanagement.model;
 
 import com.official.hotelmanagement.util.Source;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -19,6 +20,7 @@ public class Customer {
     private String address;
     private Source source;
     private String idProof;
+    @Transient
     @MappedCollection(idColumn = "customer")
     private Set<Reservation> reservations;
 
