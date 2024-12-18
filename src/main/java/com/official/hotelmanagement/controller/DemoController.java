@@ -120,7 +120,7 @@ public class DemoController {
 
     @GetMapping(path = "/add_room_to_employee")
     public Employee addRoomToEmployee() {
-        Room room = new Room(501, RoomType.normal, "", new BigDecimal(0), Status.out_of_service);
+        Room room = new Room(501, RoomType.normal, "", new BigDecimal(0), Status.occupied);
         employeeManagementService.addRoomToEmployee(8, room);
         return employeeManagementService.getEmployeeById(8);
     }

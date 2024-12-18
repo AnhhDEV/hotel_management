@@ -2,29 +2,48 @@ package com.official.hotelmanagement.controller;
 
 import com.official.hotelmanagement.model.Floor;
 import com.official.hotelmanagement.model.Room;
+import com.official.hotelmanagement.model.RoomReservation;
 import com.official.hotelmanagement.model.dto.RoomDto;
 import com.official.hotelmanagement.service.HotelManagementService;
+import com.official.hotelmanagement.service.ReservationManagementService;
 import com.official.hotelmanagement.util.RoomType;
 import com.official.hotelmanagement.util.Status;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin/hotel")
 public class HotelController {
 
     private final HotelManagementService hotelService;
+    private final ReservationManagementService reservationService;
 
-    public HotelController(HotelManagementService hotelService) {
+    public HotelController(HotelManagementService hotelService, ReservationManagementService reservationService) {
         this.hotelService = hotelService;
+        this.reservationService = reservationService;
     }
 
     @GetMapping
     public String getHotel(Model model) {
         List<Floor> floors = hotelService.getFloors();
+        for(Floor floor : floors) {
+            Set<Room> rooms = floor.getRooms();
+            if(!rooms.isEmpty()) {
+                for(Room room : rooms) {
+                    Boolean check = reservationService.roomIsAvailable(room);
+                    if(check) {
+                        hotelService.updateRoomStatus(room, Status.available);
+                    } else {
+                        hotelService.updateRoomStatus(room, Status.occupied);
+                    }
+                }
+            }
+        }
         model.addAttribute("floors", floors);
         return "demo/hotel";
     }
@@ -46,8 +65,9 @@ public class HotelController {
     }
 
     @PostMapping("/add-room")
-    public String addRoom(@ModelAttribute RoomDto roomDto) {
+    public String addRoom(@ModelAttribute RoomDto roomDto, RedirectAttributes redirectAttributes) {
         hotelService.insertRoom(roomDto);
+        redirectAttributes.addFlashAttribute("successMessage", "Thêm phòng thành công!");
         return "redirect:/admin/dashboard";
     }
 

@@ -100,4 +100,23 @@ public class ReservationManagementService {
        return rooms;
     }
 
+    public Boolean roomIsAvailable(Room room) {
+        Set<RoomReservation> roomReservations = room.getRoomReservations();
+        if(!roomReservations.isEmpty()) {
+            for(RoomReservation r : roomReservations) {
+                Integer reservationId = r.getReservation();
+                Reservation reservation = reservationRepository.findById(reservationId)
+                        .orElseThrow(() -> new RuntimeException("Not found reservation"));
+                LocalDateTime checkedOut = reservation.getCheckoutDate();
+                LocalDateTime now = LocalDateTime.now();
+                if(now.isAfter(checkedOut)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }
