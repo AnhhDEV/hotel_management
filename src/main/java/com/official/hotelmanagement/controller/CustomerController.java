@@ -3,6 +3,7 @@ package com.official.hotelmanagement.controller;
 import com.official.hotelmanagement.model.Customer;
 import com.official.hotelmanagement.model.Employee;
 import com.official.hotelmanagement.service.ReservationManagementService;
+import com.official.hotelmanagement.util.Source;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,31 +24,52 @@ public class CustomerController {
     public String listCustomers(Model model) {
         Iterable<Customer> customers = reservationService.getCustomers();
         model.addAttribute("customers", customers);
-        return "demo/customer"; // Trả về template customer.html
+        model.addAttribute("sources", Source.values()); // Enum Source
+        return "demo/customer";
     }
-
-    // 2. Thêm khách hàng mới
+    
     @PostMapping("/add")
-    public String addCustomer(@ModelAttribute("customer") Customer customer) {
+    public String addCustomer(@RequestParam String firstname,
+                              @RequestParam String lastname,
+                              @RequestParam String contact,
+                              @RequestParam String email,
+                              @RequestParam String address,
+                              @RequestParam Source source,
+                              @RequestParam String idProof) {
+        Customer customer = new Customer();
+        customer.setFirstname(firstname);
+        customer.setLastname(lastname);
+        customer.setContact(contact);
+        customer.setEmail(email);
+        customer.setAddress(address);
+        customer.setSource(source);
+        customer.setIdProof(idProof);
+
         reservationService.insertCustomer(customer);
         return "redirect:/admin/customers";
     }
 
-    // 3. Chỉnh sửa khách hàng
     @PostMapping("/edit/{id}")
-    public String updateCustomer(@PathVariable("id") Integer id, @ModelAttribute("customer") Customer customer) {
+    public String updateCustomer(@PathVariable("id") Integer id,
+                                 @RequestParam String firstname,
+                                 @RequestParam String lastname,
+                                 @RequestParam String contact,
+                                 @RequestParam String email,
+                                 @RequestParam String address,
+                                 @RequestParam Source source,
+                                 @RequestParam String idProof) {
+        Customer customer = new Customer();
         customer.setCustomerId(id);
+        customer.setFirstname(firstname);
+        customer.setLastname(lastname);
+        customer.setContact(contact);
+        customer.setEmail(email);
+        customer.setAddress(address);
+        customer.setSource(source);
+        customer.setIdProof(idProof);
+
         reservationService.updateCustomer(customer);
         return "redirect:/admin/customers";
     }
 
-    // 4. Xóa khách hàng
-    @GetMapping("/delete/{id}")
-    public String deleteCustomer(@PathVariable("id") Integer id) {
-        Customer customer = reservationService.getCustomerById(id);
-        if (customer != null) {
-            reservationService.deleteCustomer(customer);
-        }
-        return "redirect:/admin/customers";
-    }
 }

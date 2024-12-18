@@ -153,15 +153,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link" id="customer-link">
+                        <a href="/admin/customers" class="nav-link" id="customer-link">
                             <i class="nav-icon bi bi-circle-fill"></i>
                             <p>Khách hàng</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" id="employee-link">
-                            <i class="nav-icon bi bi-circle-fill"></i>
-                            <p>Nhân viên</p>
                         </a>
                     </li>
 
@@ -230,28 +224,8 @@
             .catch(error => console.error('Error loading customers:', error));
     });
 
-    document.getElementById("employee-link").addEventListener("click", function (event) {
-        event.preventDefault();  // Ngăn hành vi mặc định của thẻ <a>
-
-        fetch('/admin/employees') // Gửi request tới controller
-            .then(response => response.text())
-            .then(data => {
-                // Chèn nội dung HTML trả về vào phần main-content
-                document.getElementById("main-content").innerHTML = data;
-            })
-            .catch(error => console.error('Error loading customers:', error));
-    });
-
-    document.getElementById("customer-link").addEventListener("click", function (event) {
-        event.preventDefault();  // Ngăn hành vi mặc định của thẻ <a>
-
-        fetch('/admin/customers') // Gửi request tới controller
-            .then(response => response.text())
-            .then(data => {
-                // Chèn nội dung HTML trả về vào phần main-content
-                document.getElementById("main-content").innerHTML = data;
-            })
-            .catch(error => console.error('Error loading customers:', error));
+    document.getElementById("customer-link").addEventListener("click", function () {
+        window.location.href = "/admin/customers";
     });
 
     document.getElementById("reserve-room").addEventListener("click", function (event) {
@@ -267,8 +241,6 @@
     });
 
 </script>
-
-
 
 
 

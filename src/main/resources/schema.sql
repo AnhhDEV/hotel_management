@@ -6,6 +6,11 @@ create database qlks;
 /*
  hotel
  */
+create table Admin(
+    username varchar(100),
+    password varchar(100)
+);
+
 create table Hotel
 (
     hotel_id int primary key auto_increment,
