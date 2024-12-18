@@ -8,6 +8,7 @@ import com.official.hotelmanagement.repository.CustomerRepository;
 import com.official.hotelmanagement.repository.ReservationRepository;
 import com.official.hotelmanagement.repository.RoomRepository;
 import com.official.hotelmanagement.repository.RoomReservationRepository;
+import com.official.hotelmanagement.util.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +64,13 @@ public class ReservationManagementService {
 
     public Iterable<ReservationDto> getReservationDtos() {
         return reservationRepository.findReservationsDto();
+    }
+
+    public void updatePayment(Integer reservationId, Payment payment) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new RuntimeException("Reservation not found"));
+        reservation.setPayment(payment);
+        reservationRepository.save(reservation);
     }
 
 }
