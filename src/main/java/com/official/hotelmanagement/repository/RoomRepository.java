@@ -30,4 +30,7 @@ public interface RoomRepository extends CrudRepository<Room, Integer> {
             Integer hotel
     );
 
+    @Query("SELECT COUNT(*) FROM Room")
+    Integer countRoom();
+
 }

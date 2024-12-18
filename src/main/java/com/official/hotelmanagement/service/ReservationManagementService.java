@@ -138,4 +138,16 @@ public class ReservationManagementService {
         return true;
     }
 
+    public BigDecimal getProfit() {
+        BigDecimal total = new BigDecimal(0);
+        for (RoomReservation roomReservation : roomReservationRepository.findAll()) {
+            total = total.add(roomReservation.getTotalCost());
+        }
+        return total;
+    }
+
+    public Integer customerTraffic() {
+        return reservationRepository.countReservation();
+    }
+
 }

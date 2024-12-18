@@ -22,4 +22,6 @@ public interface ReservationRepository extends CrudRepository<Reservation, Integ
             "JOIN Customer c ON r.customer = c.customer_id ")
     Iterable<ReservationDto> findReservationsDto();
 
+    @Query("SELECT COUNT(*) FROM Reservation")
+    Integer countReservation();
 }

@@ -1,6 +1,7 @@
 package com.official.hotelmanagement.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -14,6 +15,7 @@ public class Hotel {
     private String address;
     private String contact;
     private String owner;
+    @Transient
     @MappedCollection(idColumn = "hotel")
     private Set<Floor> floors;
 

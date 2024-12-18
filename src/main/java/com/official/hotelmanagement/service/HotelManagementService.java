@@ -106,6 +106,10 @@ public class HotelManagementService {
         return roomRepository.findAll();
     }
 
+    public Integer getRoomTotal() {
+        return roomRepository.countRoom();
+    }
+
     public Room getRoomById(Integer id) {
         return roomRepository.findById(id).orElse(null);
     }
@@ -139,6 +143,11 @@ public class HotelManagementService {
     public void updateRoomStatus(Room room, Status status) {
         room.setStatus(status);
         roomRepository.save(room);
+    }
+
+    public Hotel getHotel() {
+        return hotelRepository.findById(1)
+                .orElseThrow(() -> new RuntimeException("Not found hotel"));
     }
 
 }

@@ -15,18 +15,24 @@
             font-weight: bold;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
         }
 
         /* Card Phòng */
         .card {
             border: none;
             border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-body {
+            padding: 20px;
         }
 
         /* Trạng thái phòng */
@@ -46,19 +52,29 @@
             font-size: 0.9rem;
         }
 
-        .status-out-of-service {
-            background-color: #6c757d;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-
         /* Giá */
         .room-cost {
             font-size: 1rem;
             font-weight: bold;
             color: #ff6f61;
+        }
+
+        /* Đảm bảo căn chỉnh và khoảng cách */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .col-md-4 {
+            flex: 1 0 30%;
+            margin-bottom: 15px;
+        }
+
+        /* Sửa một số khoảng cách nhỏ giữa các phần tử */
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -72,7 +88,6 @@
         <div class="floor-header mb-3">
             Tầng <span th:text="${floor.floorNumber}">1</span>
         </div>
-
         <!-- Danh sách phòng -->
         <div class="row">
             <div th:each="room : ${floor.rooms}" class="col-md-4 mb-4">
