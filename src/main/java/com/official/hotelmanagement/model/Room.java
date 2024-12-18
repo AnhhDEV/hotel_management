@@ -20,7 +20,6 @@ public class Room {
     private BigDecimal cost;
     private Status status;
     private Integer employee;
-    @Transient
     @MappedCollection(idColumn = "room")
     private Set<RoomReservation> roomReservations;
 

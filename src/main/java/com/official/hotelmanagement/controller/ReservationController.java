@@ -34,7 +34,6 @@ public class ReservationController {
         return "demo/reserve-room";
     }
 
-    // Xử lý lưu đặt phòng
     @PostMapping("/add")
     public String addReservation(@RequestParam("customerId") Integer customerId,
                                  @RequestParam("checkinDate") String checkinDate,
@@ -42,17 +41,15 @@ public class ReservationController {
                                  @RequestParam("payment") Payment payment,
                                  @RequestParam("roomIds") List<Integer> roomIds,
                                  RedirectAttributes redirectAttributes) {
-        // Tạo đối tượng Reservation
+
         Reservation reservation = new Reservation();
         reservation.setCustomer(customerId);
         reservation.setCheckinDate(LocalDateTime.parse(checkinDate + "T00:00:00"));
         reservation.setCheckoutDate(LocalDateTime.parse(checkoutDate + "T00:00:00"));
-        reservation.setPayment(payment); // Gán trạng thái thanh toán
+        reservation.setPayment(payment);
 
-        // Tìm danh sách phòng từ roomIds
         List<Room> rooms = reservationService.getRoomsByIds(roomIds);
 
-        // Lưu đặt phòng
         reservationService.insertReservation(reservation, rooms);
         redirectAttributes.addFlashAttribute("successMessage", "Đặt phòng thành công!");
         return "redirect:/admin/dashboard"; // Quay về danh sách đặt phòng
@@ -68,8 +65,10 @@ public class ReservationController {
 
     @PostMapping("/updatePayment")
     public String updatePayment(@RequestParam("reservationId") Integer reservationId,
-                                @RequestParam("payment") Payment payment) {
-        reservationService.updatePayment(reservationId, payment); // Cập nhật payment trong service
+                                @RequestParam("payment") Payment payment,
+                                RedirectAttributes redirectAttributes) {
+        reservationService.updatePayment(reservationId, payment);
+        redirectAttributes.addFlashAttribute("successMessage", "Cập nhập thành công!");
         return "redirect:/admin/dashboard";
     }
 

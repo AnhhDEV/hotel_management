@@ -8,10 +8,12 @@ import com.official.hotelmanagement.model.dto.RoomDto;
 import com.official.hotelmanagement.repository.FloorRepository;
 import com.official.hotelmanagement.repository.HotelRepository;
 import com.official.hotelmanagement.repository.RoomRepository;
+import com.official.hotelmanagement.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -132,6 +134,11 @@ public class HotelManagementService {
                 roomDto.floor(),
                 roomDto.hotel()
         );
+    }
+
+    public void updateRoomStatus(Room room, Status status) {
+        room.setStatus(status);
+        roomRepository.save(room);
     }
 
 }

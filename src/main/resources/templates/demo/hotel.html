@@ -35,7 +35,7 @@
     <!-- Lặp qua danh sách các tầng -->
     <div th:each="floor : ${floors}" class="mb-4">
         <h3 class="bg-primary text-white p-2">Tầng <span th:text="${floor.floorNumber}">1</span></h3>
-
+        <br>
         <!-- Hiển thị danh sách các phòng trong tầng -->
         <div class="row">
             <div th:each="room : ${floor.rooms}" class="col-md-4 mb-3">
@@ -59,11 +59,6 @@
             </div>
         </div>
 
-        <!-- Hiển thị tổng chi phí ở cuối tầng -->
-        <div class="text-end fw-bold mt-2">
-            Tổng tiền tầng <span th:text="${floor.floorNumber}">1</span>:
-            <span th:text="${#aggregates.sum(floor.rooms.![cost])}">0</span> VND
-        </div>
     </div>
 </div>
 
