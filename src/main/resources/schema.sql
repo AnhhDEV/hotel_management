@@ -1,6 +1,4 @@
 
-create database qlks;
-
 create table Login
 (
     id int primary key,
