@@ -8,22 +8,22 @@
     <style>
         /* Header Tầng */
         .floor-header {
-            background: linear-gradient(to right, #007bff, #0056b3);
+            background: linear-gradient(to right, #4c6ef5, #6a89cc);
             color: white;
             border-radius: 8px;
-            padding: 10px 15px;
+            padding: 15px;
+            font-size: 1.2rem;
             font-weight: bold;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         /* Card Phòng */
         .card {
             border: none;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
         }
 
         .card:hover {
@@ -31,15 +31,11 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
-        .card-body {
-            padding: 20px;
-        }
-
         /* Trạng thái phòng */
         .status-available {
             background-color: #28a745;
             color: white;
-            padding: 3px 8px;
+            padding: 5px 10px;
             border-radius: 20px;
             font-size: 0.9rem;
         }
@@ -47,34 +43,37 @@
         .status-occupied {
             background-color: #dc3545;
             color: white;
-            padding: 3px 8px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .status-out-of-service {
+            background-color: #6c757d;
+            color: white;
+            padding: 5px 10px;
             border-radius: 20px;
             font-size: 0.9rem;
         }
 
         /* Giá */
         .room-cost {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            color: #ff6f61;
+            color: #e74c3c;
         }
 
-        /* Đảm bảo căn chỉnh và khoảng cách */
-        .row {
+        /* Card Layout */
+        .card-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
+            gap: 20px;
+            justify-content: center;
         }
 
-        .col-md-4 {
-            flex: 1 0 30%;
-            margin-bottom: 15px;
-        }
-
-        /* Sửa một số khoảng cách nhỏ giữa các phần tử */
-        .card-title {
+        .card-title a {
+            text-decoration: none;
             font-size: 1.2rem;
-            font-weight: bold;
         }
     </style>
 </head>
@@ -85,17 +84,17 @@
     <!-- Lặp qua danh sách các tầng -->
     <div th:each="floor : ${floors}" class="mb-5">
         <!-- Header tầng -->
-        <div class="floor-header mb-3">
+        <div class="floor-header mb-4">
             Tầng <span th:text="${floor.floorNumber}">1</span>
         </div>
+
         <!-- Danh sách phòng -->
-        <div class="row">
-            <div th:each="room : ${floor.rooms}" class="col-md-4 mb-4">
-                <div class="card shadow">
+        <div class="row card-container">
+            <div th:each="room : ${floor.rooms}" class="col-md-4">
+                <div class="card shadow h-100">
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            <a th:href="@{/admin/hotel/{id}(id=${room.roomNumber})}"
-                               class="text-decoration-none text-primary fw-bold">
+                            <a th:href="@{/admin/hotel/{id}(id=${room.roomNumber})}" class="text-primary fw-bold">
                                 Phòng <span th:text="${room.roomNumber}">101</span>
                             </a>
                         </h5>

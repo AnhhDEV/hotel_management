@@ -59,7 +59,7 @@ create table Customer
     contact     varchar(50)  not null,
     email       varchar(255),
     address     varchar(255),
-    source      varchar(10)  not null,
+    source      varchar(50)  not null,
     id_proof    varchar(55)  not null
 );
 
@@ -101,7 +101,7 @@ VALUES ('Nguyen', 'Van A', '0912345678', 'vana@example.com', '123 ABC Street', '
        ('Pham', 'Thi D', '0945678901', 'thid@example.com', '321 JKL Street', 'Simply_guest', 'ID456789'),
        ('Hoang', 'Van E', '0956789012', 'vane@example.com', '654 MNO Street', 'Simply_guest', 'ID567890');
 
--- Insert data into Floor table (assuming hotel_id = 1)
+
 INSERT INTO Floor (floor_number, hotel)
 VALUES (1, 1),
        (2, 1),

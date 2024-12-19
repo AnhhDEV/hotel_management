@@ -37,15 +37,18 @@
         }
         .dashboard {
             display: flex;
+            flex-wrap: wrap;
             gap: 20px;
-            margin-top: 20px;
             justify-content: space-between;
+            margin-top: 20px;
         }
 
         .card {
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
             background-color: #f4f6f9;
             border-radius: 10px;
-            width: 23%;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
             text-align: center;
@@ -54,41 +57,26 @@
             justify-content: center;
             align-items: center;
         }
-
-        .card-number {
-            font-size: 36px;
-            font-weight: bold;
-            color: #fff;
+        .card.blue {
+            background-color: #007bff; /* Màu xanh dương */
+            color: white;
         }
 
-        .card-label {
-            font-size: 16px;
-            color: #fff;
-            margin-top: 10px;
+        .card.green {
+            background-color: #28a745; /* Màu xanh lá */
+            color: white;
         }
 
-        .card-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .card.yellow {
+            background-color: #ffc107; /* Màu vàng */
+            color: white;
         }
 
-        .blue {
-            background-color: #007bff;
+        .card.red {
+            background-color: #dc3545; /* Màu đỏ */
+            color: white;
         }
 
-        .green {
-            background-color: #28a745;
-        }
-
-        .yellow {
-            background-color: #ffc107;
-        }
-
-        .red {
-            background-color: #dc3545;
-        }
     </style>
 </head> <!--end::Head--> <!--begin::Body-->
 
@@ -245,29 +233,30 @@
             <div class="dashboard">
                 <div class="card blue">
                     <div class="card-content">
-                        <div class="card-number" th:text="${floor}"></div>
+                        <div class="card-number" th:text="${floor}">10</div>
                         <div class="card-label">Number of Floors</div>
                     </div>
                 </div>
                 <div class="card green">
                     <div class="card-content">
-                        <div class="card-number" th:text="${room}"></div>
+                        <div class="card-number" th:text="${room}">100</div>
                         <div class="card-label">Number of Rooms</div>
                     </div>
                 </div>
                 <div class="card yellow">
                     <div class="card-content">
-                        <div class="card-number" th:text="${visitorCount}"></div>
+                        <div class="card-number" th:text="${visitorCount}">50</div>
                         <div class="card-label">Visitors</div>
                     </div>
                 </div>
                 <div class="card red">
                     <div class="card-content">
-                        <div class="card-number" th:text="${profit} + VNĐ"></div>
+                        <div class="card-number" th:text="${profit} + ' VNĐ'">500,000 VNĐ</div>
                         <div class="card-label">Revenue</div>
                     </div>
                 </div>
             </div>
+
 
 
 
