@@ -1,11 +1,6 @@
-/*
- database
- */
+
 create database qlks;
 
-/*
- hotel
- */
 create table Login
 (
     id int primary key,
@@ -22,9 +17,6 @@ create table Hotel
     owner    varchar(100) not null
 );
 
-/*
- floor
- */
 create table Floor
 (
     floor_number int primary key,
@@ -32,9 +24,6 @@ create table Floor
     foreign key (hotel) references Hotel (hotel_id)
 );
 
-/*
- room
- */
 create table Room
 (
     room_number  int primary key,
@@ -48,9 +37,6 @@ create table Room
     foreign key (hotel) references Hotel (hotel_id)
 );
 
-/*
- customer
- */
 create table Customer
 (
     customer_id int auto_increment primary key,
@@ -63,9 +49,6 @@ create table Customer
     id_proof    varchar(55)  not null
 );
 
-/*
- reservation
- */
 create table Reservation
 (
     reservation_id int auto_increment primary key,
@@ -76,9 +59,6 @@ create table Reservation
     foreign key (customer) references Customer (customer_id)
 );
 
-/*
- associative table
- */
 create table Room_Reservation
 (
     room   int,
